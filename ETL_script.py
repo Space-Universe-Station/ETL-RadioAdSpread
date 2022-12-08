@@ -25,7 +25,13 @@ def seed_database(user_info):
     cursor = conn.cursor()
 
     # insert user information into database
-    cursor.execute("INSERT INTO users (name, age, gender) VALUES (%s, %s, %s)", user_info)
+    cursor.execute("INSERT INTO radiostation_catalogues (station_name, station_freq, station_state, station_uuid) VALUES (%s, %s, %s, %s) RETURNING id", user_info)
+    catalogue_id = cursor.fetchone()[0]
+
+    # insert streams for user into database
+    for stream in user_data["streams"]:
+        cursor.execute("INSERT INTO radiostation_streams (catalogue_id, url) VALUES (%s, %s)", (catalogue_id, stream["url"]))
+
     conn.commit()
 
     # close database connection
