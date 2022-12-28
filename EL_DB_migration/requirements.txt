@@ -1,0 +1,10 @@
+argon2-cffi==21.3.0
+argon2-cffi-bindings==21.2.0
+cffi==1.15.1
+greenlet==2.0.1
+mysql-connector-python==8.0.29
+protobuf==4.21.12
+psycopg2==2.9.5
+pycparser==2.21
+python-dotenv==0.21.0
+SQLAlchemy==1.4.45
