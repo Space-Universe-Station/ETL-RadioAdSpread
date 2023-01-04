@@ -1,8 +1,10 @@
 
 #import libraries
-import os,psycopg2
+import os,psycopg2,pytz
+from datetime import datetime
 from dotenv import load_dotenv
 load_dotenv()
+
 
 #load database configuration
 connection = psycopg2.connect(
@@ -101,4 +103,34 @@ def bulkLoadUserGroup(records:list,connection=connection):
             connection.close()
             print("PostgreSQL connection is closed")
 
-CheckTableStatus()
+def LoadDefaultSlots(records:list,connection=connection):
+    """
+    This function runs an insert query on the table
+    :params - connection
+    :params - records
+    """
+    cursor = connection.cursor()
+    try:
+        sql_insert_query = 'INSERT INTO "Slot" (id,"broadcasterId","startTime","endTime", "Ann50WordsPrice", "Ann75WordsPrice","Ann100WordsPrice","Jingle30SecPrice", "Jingle45SecPrice",  "Jingle60SecPrice","Jingle15SecPrice","updatedAt") VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+        # execute many() to insert multiple rows
+        result = cursor.executemany(sql_insert_query, records)
+        connection.commit()
+        print(cursor.rowcount, "Record inserted successfully into slots table")
+    except (Exception, psycopg2.Error) as error:
+        print("Failed inserting record into slots table {}".format(error))
+        
+utc = pytz.timezone('GMT')
+# Create a datetime object with the current date and time
+dt = datetime(1970, 1, 1, 0, 0, 0,tzinfo=utc)
+dt_h = datetime(1970, 1, 1, 0, 59, 0,tzinfo=utc)
+#initialize variables
+slot_list=[]
+b=9
+id=1
+for i in range(0,100):
+  slot_list.append((id,b,dt,dt_h,5000,5000,5000,5000,5000,5000,5000,datetime.now()))
+  id+=1
+  b+=1
+
+#print(slot_list[0])
+LoadDefaultSlots(slot_list)
