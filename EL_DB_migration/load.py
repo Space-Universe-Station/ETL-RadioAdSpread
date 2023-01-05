@@ -133,4 +133,4 @@ for i in range(0,100):
   b+=1
 
 #print(slot_list[0])
-LoadDefaultSlots(slot_list)
+#LoadDefaultSlots(slot_list)
