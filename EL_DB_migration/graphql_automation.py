@@ -1,7 +1,8 @@
 import requests
 
 # Set the endpoint URL
-URL = "http://localhost:5000/api/v3"
+#URL = "http://localhost:5000/api/v3"
+URL ="https://radadspd-server.azurewebsites.net/api/v3"
 # Set the headers
 headers = {
     "Content-Type": "application/json"
@@ -45,4 +46,4 @@ def BulkRegisterBroadcasters(country, fullname, name,positionHeld,address,state,
   # Send the POST request
   response = requests.post(url, json=payload, headers=header)
   # Print the response
-  print(response.json())
+  # print(response.json())
