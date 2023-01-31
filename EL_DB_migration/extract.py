@@ -71,6 +71,17 @@ hash_str = hash.decode().lstrip("b") # Convert the bytes object to a string and 
 #   'Music & Lifestyle', 'https://http://www.thebeat99.com/listen-live', 'beat-fm', None, {'NO'},
 # {'NO'}, datetime.datetime(2021, 2, 19, 5, 11, 38), datetime.datetime(2021, 2, 19, 5, 11, 38))
 
+# UPDATE table_name
+# SET column_1 = 'default',
+#     column_2 = 'default',
+#     ...
+#     column_n = 'default'
+# WHERE column_1 IS NULL OR
+#       column_2 IS NULL OR
+#       ...
+#       column_n IS NULL;
+
+
 for i in cursor_source: # type: ignore
   broadcaster_register_list.append((i[35],i[2],i[28],i[29],i[31],i[33],i[32],i[36],i[38],i[37],i[30],i[3],"myPassword1234",i[22],i[9]))
   #broadcaster_register_list.append(("nigeria",i[2],i[4],"","",i[23],"","","","","",i[3],hash_str,i[22],i[9]))
