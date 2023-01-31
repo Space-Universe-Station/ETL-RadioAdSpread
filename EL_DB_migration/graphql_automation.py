@@ -3,12 +3,15 @@ import requests
 # Set the endpoint URL
 #URL = "http://localhost:5000/api/v3"
 URL ="https://radadspd-server.azurewebsites.net/api/v3"
+# URL ="https://radadspd-test.azurewebsites.net/api/v3"
 # Set the headers
 headers = {
     "Content-Type": "application/json"
 }
 
-def BulkRegisterBroadcasters(country, fullname, name,positionHeld,address,state,city,radioStationWebsite,radioStationDigitalStreaUrl,radioStationCategory,phoneNumber,email,password,url=URL,header=headers):
+def BulkRegisterBroadcasters(country,name, fullname, positionHeld,address,state,city,
+radioStationWebsite,radioStationDigitalStreaUrl,phoneNumber,
+email,password,tagline,banner,radioStationCategory,url=URL,header=headers):
   # Set the GraphQL query
   query = """
   mutation Mutation($input: BroadcasterRegisterInput) {
@@ -19,6 +22,7 @@ def BulkRegisterBroadcasters(country, fullname, name,positionHeld,address,state,
     }
   }
   """
+  
   # Set the variables
   variables = {
       "input": {
@@ -35,7 +39,10 @@ def BulkRegisterBroadcasters(country, fullname, name,positionHeld,address,state,
           "radioStationCategory": radioStationCategory,
           "radioStationWebsite": radioStationWebsite,
           "radioStationDigitalStreaUrl": radioStationDigitalStreaUrl,
-          "state": state
+          "state": state,
+          "tagLine":tagline,
+          "bannerName":banner,
+          "zipcode":"0000"
       }
   }
   # Set the payload
@@ -46,4 +53,4 @@ def BulkRegisterBroadcasters(country, fullname, name,positionHeld,address,state,
   # Send the POST request
   response = requests.post(url, json=payload, headers=header)
   # Print the response
-  # print(response.json())
+  print(response.json())
