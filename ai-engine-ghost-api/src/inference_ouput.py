@@ -9,7 +9,25 @@ import pika
 
 
 _message_number = None
+import datetime
 
+# Get current datetime and add 3 days
+dt = datetime.datetime.now() + datetime.timedelta(days=3)
+
+# Format datetime in ISO 8601 format
+dt_str = dt.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+
+# Create a datetime object representing the start time
+start_time = datetime.datetime(2023, 2, 28, 8, 0, 0)
+
+# Convert the datetime object to a string in the required format
+start_time_str = start_time.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+
+# Create a datetime object representing the end time
+end_time = datetime.datetime(2023, 2, 28, 10, 0, 0)
+
+# Convert the datetime object to a string in the required format
+end_time_str = start_time.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
 def push_audio_inference(channel:pika.BlockingConnection.channel):
 
     # Declare the queue
@@ -19,20 +37,146 @@ def push_audio_inference(channel:pika.BlockingConnection.channel):
     channel.queue_bind("radiostData",'radadspread_analytics',
                                  "radspdrdsc###0000*")
     channel.confirm_delivery()
-    data = {
-        "audio_name": "MTNJingle",
-        "audio_uuid": "dfefdsewreffdefds",
-        "is_analyzed": False,
-        "station_freq": 96.9,
-        "station_name": "Cool FM",
-        "station_stm_url": "https:ok.com",
-        "station_uuid": "hgghgbygyv",
-        "is_active": False,
-        "stream_pdate": "21-03-2023",
-        "stream_stime": "00:00:00",
-        "stream_etime": "00:00:00",
-        "is_completed": False,
-    }
+    data =  [{
+    'advertiser_id': 123,
+    'title': 'My Campaign',
+    'ga_file': 'ga_file.txt',
+    'ga_pid': 456,
+    'radio_stations': [
+        {
+            'station_name': 'Rhythm',
+            'station_freq': 93.7,
+            'station_state': 'Lagos',
+            'station_stm_url': 'http://radio1.com/stream',
+            'stream_schedule': [
+                {
+                    'stream_pdate': dt_str,
+                    'stream_stime': start_time_str,
+                    'stream_etime': start_time_str 
+                },
+                {
+                    'stream_pdate': dt_str,
+                    'stream_stime': start_time_str,
+                    'stream_etime': start_time_str 
+                }
+            ]
+        },
+        {
+            'station_name': 'Beat FM',
+            'station_freq': 99.9,
+            'station_state': 'PH',
+            'station_stm_url': 'http://radio2.com/stream',
+            'stream_schedule': [
+                {
+                    'stream_pdate': dt_str,
+                    'stream_stime': start_time_str,
+                    'stream_etime': start_time_str 
+                },
+                {
+                    'stream_pdate': dt_str,
+                    'stream_stime': start_time_str,
+                    'stream_etime': start_time_str 
+                }
+            ]
+        }
+    ],
+    'audio_name': 'audio.mp3',
+    'audio_url': '123abc.com'
+},
+{
+    'advertiser_id': 7689,
+    'title': 'My Campaign',
+    'ga_file': 'ga_file.txt',
+    'ga_pid': 456,
+    'radio_stations': [
+        {
+            'station_name': 'Rhythm',
+            'station_freq': 93.7,
+            'station_state': 'Lagos',
+            'station_stm_url': 'http://radio1.com/stream',
+            'stream_schedule': [
+                {
+                    'stream_pdate': dt_str,
+                    'stream_stime': start_time_str,
+                    'stream_etime': start_time_str 
+                },
+                {
+                    'stream_pdate': dt_str,
+                    'stream_stime': start_time_str,
+                    'stream_etime': start_time_str 
+                }
+            ]
+        },
+        {
+            'station_name': 'Beat FM',
+            'station_freq': 99.9,
+            'station_state': 'PH',
+            'station_stm_url': 'http://radio2.com/stream',
+            'stream_schedule': [
+                {
+                    'stream_pdate': dt_str,
+                    'stream_stime': start_time_str,
+                    'stream_etime': start_time_str 
+                },
+                {
+                    'stream_pdate': dt_str,
+                    'stream_stime': start_time_str,
+                    'stream_etime': start_time_str 
+                }
+            ]
+        }
+    ],
+    'audio_name': 'audio.mp3',
+    'audio_url': '123abc.com'
+},
+{
+    'advertiser_id': 6178,
+    'title': 'My Campaign',
+    'ga_file': 'ga_file.txt',
+    'ga_pid': 456,
+    'radio_stations': [
+        {
+            'station_name': 'Rhythm',
+            'station_freq': 93.7,
+            'station_state': 'Lagos',
+            'station_stm_url': 'http://radio1.com/stream',
+            'stream_schedule': [
+                {
+                    'stream_pdate': dt_str,
+                    'stream_stime': start_time_str,
+                    'stream_etime': start_time_str 
+                },
+                {
+                    'stream_pdate': dt_str,
+                    'stream_stime': start_time_str,
+                    'stream_etime': start_time_str 
+                }
+            ]
+        },
+        {
+            'station_name': 'Cool FM',
+            'station_freq': 96.9,
+            'station_state': 'Lagos',
+            'station_stm_url': 'http://radio2.com/stream',
+            'stream_schedule': [
+                {
+                    'stream_pdate': dt_str,
+                    'stream_stime': start_time_str,
+                    'stream_etime': start_time_str 
+                },
+                {
+                    'stream_pdate': dt_str,
+                    'stream_stime': start_time_str,
+                    'stream_etime': start_time_str 
+                }
+            ]
+        }
+    ],
+    'audio_name': 'audio.mp3',
+    'audio_url': '123abc.com'
+}
+]
+
     properties = pika.BasicProperties(app_id='example-publisher',
                                           content_type='application/json')
 
@@ -41,16 +185,16 @@ def push_audio_inference(channel:pika.BlockingConnection.channel):
     i = 5
     while i < 10:
         try:
-            print("ok")
-            channel.basic_publish(
-                'radadspread_analytics',
-                "radspdrdsc###0000*",
-                json.dumps(data).encode("utf-8"),
-                properties
-            )
-            print("Message publish was confirmed")
+            for k,d in enumerate(data):
+                channel.basic_publish(
+                    'radadspread_analytics',
+                    "radspdrdsc###0000*",
+                    json.dumps(data[k]).encode("utf-8"),
+                    properties
+                )
+                print("Message publish was confirmed")
             
         except pika.exceptions.UnroutableError:
             print("Message could not be confirmed")
-        time.sleep(5)
+        time.sleep(30)
     # connection.close()
