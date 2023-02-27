@@ -7,7 +7,7 @@ from pika.exchange_type import ExchangeType
 class AmqpConfig(object):
 
     EXCHANGE = 'radadspread_analytics'
-    EXCHANGE_TYPE = ExchangeType.topic
+    EXCHANGE_TYPE = 'direct'
 
     def __init__(self, amqp_url):
         self._url = amqp_url
@@ -21,7 +21,7 @@ class AmqpConfig(object):
     def start(self)->pika.BlockingConnection.channel:
         self._connection=self.connect()
         self._channel=self._connection.channel()
-        self._channel.exchange_declare(exchange=self.EXCHANGE,
+        self._channel.exchange_declare(exchange=self.EXCHANGE,durable=True,
                                        exchange_type=self.EXCHANGE_TYPE)
         return self._channel
 
