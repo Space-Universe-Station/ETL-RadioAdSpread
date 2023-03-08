@@ -16,3 +16,6 @@ To deploy this Python script to Azure Functions, you can follow these steps:
 5. Install the requests and psycopg2 modules in your function's Python environment by adding them to the requirements.txt file.
 6. Deploy your function by saving and publishing it.
 
+source radadspdenv/bin/activate
+cd ai-engine-ghost-api
+uvicorn src.main:app --reload  --port 9000
