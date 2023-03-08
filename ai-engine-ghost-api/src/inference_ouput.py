@@ -30,11 +30,11 @@ end_time_str = end_time.strftime("%H:%M:%S")
 def push_audio_inference(channel:pika.BlockingConnection.channel):
 
     # Declare the queue
-    channel.queue_declare(
-        queue="radiostData", durable=True, exclusive=False, auto_delete=False
-    )
-    channel.queue_bind("radiostData",'radadspread_analytics',
-                                 "radspdrdsc###0000*")
+    # channel.queue_declare(
+    #     queue="radiostData", durable=True, exclusive=False, auto_delete=False
+    # )
+    # channel.queue_bind("radiostData",'radadspread_analytics',
+    #                              "radspdrdsc###0000*")
     channel.confirm_delivery()
     data =  [{
     'advertiser_id': 123,
@@ -185,7 +185,7 @@ def push_audio_inference(channel:pika.BlockingConnection.channel):
             for k,d in enumerate(data):
                 channel.basic_publish(
                     'radadspread_analytics',
-                    "radspdrdsc###0000*",
+                    "e7c49b3e9e527c",
                     json.dumps(data[k]).encode("utf-8"),
                     properties
                 )
