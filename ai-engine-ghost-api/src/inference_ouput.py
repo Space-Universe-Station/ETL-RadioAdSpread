@@ -13,13 +13,13 @@ _message_number = None
 import datetime
 
 # Get current datetime and add 3 days
-dt = datetime.datetime.now() + datetime.timedelta(days=3)
+dt = datetime.datetime.now() + datetime.timedelta(days=0)
 
 # Format datetime in ISO 8601 format
 dt_str = dt.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
-
+print(type(dt_str))
 # Get the current time
-start_time = datetime.datetime.now().time()
+start_time = (datetime.datetime.now() + datetime.timedelta(seconds=10)).time()
 
 # Calculate the end time 30 seconds later
 end_time = (datetime.datetime.now() + datetime.timedelta(seconds=30)).time()
@@ -40,7 +40,7 @@ def push_audio_inference(channel:pika.BlockingConnection.channel):
     'advertiser_id': 123,
     'title': 'My Campaign',
     'ga_file': 'ga_file.txt',
-    'ga_pid': 456,
+    'ga_pid': 352702775,
     'radio_stations': [
         {
             'station_name': 'Rhythm',
@@ -86,7 +86,7 @@ def push_audio_inference(channel:pika.BlockingConnection.channel):
     'advertiser_id': 7689,
     'title': 'My Campaign',
     'ga_file': 'ga_file.txt',
-    'ga_pid': 456,
+    'ga_pid': 352702775,
     'radio_stations': [
         {
             'station_name': 'Rhythm',
@@ -132,7 +132,7 @@ def push_audio_inference(channel:pika.BlockingConnection.channel):
     'advertiser_id': 6178,
     'title': 'My Campaign',
     'ga_file': 'ga_file.txt',
-    'ga_pid': 456,
+    'ga_pid': 352702775,
     'radio_stations': [
         {
             'station_name': 'Rhythm',
@@ -193,5 +193,5 @@ def push_audio_inference(channel:pika.BlockingConnection.channel):
             
         except pika.exceptions.UnroutableError:
             print("Message could not be confirmed")
-        time.sleep(20)
+        time.sleep(120)
     # connection.close()
