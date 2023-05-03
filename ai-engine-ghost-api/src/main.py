@@ -15,7 +15,7 @@ async def startup():
     print("⚡️🚀 RadioAdSpread Analytics Engine Started")
     chn = await asyncio.to_thread(amqpConfig.start)
     inference_thread = threading.Thread(target=inference_ouput.push_audio_inference, args=(chn,))
-    inference_thread.start()
+    #inference_thread.start()
     # ingression_thread=threading.Thread(target=ingression.LoadStationData, args=())
     # ingression_thread.start()
 
